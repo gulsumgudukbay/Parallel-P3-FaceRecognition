@@ -23,6 +23,8 @@ void create_histogram(int * hist, int ** img, int num_rows, int num_cols)
 {
 	int cur_sum = 0;
 	hist = (int*)malloc(255 * sizeof(int));
+	for(int i = 0; i < 255; i++)
+		hist[i] = 0;
 
 	for(int i = 1; i < num_rows-1; i++)
 	{
