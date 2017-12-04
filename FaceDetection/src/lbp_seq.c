@@ -71,6 +71,25 @@ double distance(int * a, int *b, int size)
 int find_closest(int ***training_set, int num_persons, int num_training, int size, int *
 test_image)
 {
+	int** histograms = (int**)malloc(num_training * sizeof(int*));
+	for(int i = 0; i < num_training; i++)
+		create_histogram(histograms[i], training_set[i], 180, 200);
+	double* distances = (int*)malloc(num_training * sizeof(int));
+
+	double max_number = -999999;
+	int max_index = 0;
+	for(int i = 0; i < num_training; i++)
+	{
+		distances[i] = distance( histograms[i], test_image, size);
+		if(distances[i] > max_number)
+		{
+			max_number = distances[i];
+			max_index = i;
+		}
+	}
+	return max_index;
+
+
 
 
 }
