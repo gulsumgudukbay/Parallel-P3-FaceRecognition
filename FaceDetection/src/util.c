@@ -33,6 +33,10 @@ int ** read_pgm_file(char * file_name, int h, int w)
 	int i,j, int_tmp;
 	int** data=alloc_2d_matrix(h,w);
 
+	for(int i = 0; i < h; i++)
+		for(int j = 0; j < w; j++)
+			data[i][j] = 0;
+
 	if ((file = fopen(file_name, "r+")) == NULL)
 	{
 		printf("ERROR: file open failed\n");

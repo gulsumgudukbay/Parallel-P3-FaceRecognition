@@ -2,22 +2,21 @@
  ============================================================================
  Name        : FaceDetection.c
  Author      : Gulsum Gudukbay
- Version     :
- Copyright   : 
- Description : Hello World in C, Ansi-style
+ Description : Face Detection Sequential Code
  ============================================================================
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "util.h"
+#include <float.h>
 
 void create_histogram(int * hist, int ** img, int num_rows, int num_cols);
 double distance(int * a, int *b, int size);
 int find_closest(int ***training_set, int num_persons, int num_training, int size, int *
 test_image);
 
-void create_histogram(int * hist, int ** img, int num_rows, int num_cols)
+void create_histogram(int* hist, int** img, int num_rows, int num_cols)
 {
 	int cur_sum = 0;
 
@@ -27,11 +26,9 @@ void create_histogram(int * hist, int ** img, int num_rows, int num_cols)
 	for(int i = 1; i < num_rows-1; i++)
 	{
 		cur_sum = 0;
-
 		for(int j = 1; j < num_cols-1; j++)
 		{
 			cur_sum = 0;
-
 			if(img[i][j] < img[i-1][j-1])
 				cur_sum += 128;
 			if(img[i][j] < img[i-1][j])
@@ -50,11 +47,12 @@ void create_histogram(int * hist, int ** img, int num_rows, int num_cols)
 				cur_sum += 1;
 
 			hist[cur_sum]++;
+
 		}
 	}
 }
 
-double distance(int * a, int *b, int size)
+double distance(int* a, int *b, int size)
 {
 	double sum = 0;
 	for(int i = 0; i < size; i++)
@@ -64,8 +62,6 @@ double distance(int * a, int *b, int size)
 	}
 	return sum;
 }
-
-
 
 int find_closest(int ***training_set, int num_persons, int num_training, int size, int *
 test_image)
@@ -80,7 +76,7 @@ test_image)
 
 	double* distances = (double*)malloc(num_training * num_persons* sizeof(double));
 
-	double min_number = 9999999;
+	double min_number = DBL_MAX;
 	int min_index = 0;
 	for(int i = 0; i < num_training*num_persons; i++)
 	{
@@ -100,7 +96,7 @@ test_image)
 
 int main(void) {
 
-	int k = 1; //number of training images for each person
+	int k = 2; //number of training images for each person
 	int n = 18; //number of people
 	int p = 20; //number of pictures for each person
 	int rows = 182;
@@ -113,9 +109,7 @@ int main(void) {
 	int ***training_sets = (int***)malloc((k * n) * sizeof(int**));
 
 	for(int i = 0; i < n; i++)
-	{
 		pictures[i] = (int***)malloc(p * sizeof(int**));
-	}
 
 	char* filename;
 
@@ -159,7 +153,7 @@ int main(void) {
 	{
 		for(int j = 0; j < p-k; j++) //traverse each test image for each person
 		{
-			printf("%d.%d.txt\t%d %d\n", i, j+k, closest_indices[i][j], i);
+			printf("%d.%d.txt\t%d %d\n", i+1, j+k+1, closest_indices[i][j]+1, i+1);
 			errors += (closest_indices[i][j] != i);
 		}
 	}
@@ -168,6 +162,11 @@ int main(void) {
 
 	for(int i = 0; i < (k * n); i++)
 		dealloc_2d_matrix(training_sets[i], k*n, p);
+
+	for(int i = 0; i < n; i++)
+		for(int j = 0; j < p; j++)
+			dealloc_2d_matrix(pictures[i][j], rows, cols);
+
 
 	return 0;
 }
