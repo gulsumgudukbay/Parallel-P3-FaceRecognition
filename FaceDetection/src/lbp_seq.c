@@ -73,16 +73,14 @@ test_image)
 	int** histograms = (int**)malloc(num_training * num_persons * sizeof(int*));
 
 	for(int i = 0; i < num_training*num_persons; i++)
-		histograms[i] = (int*)malloc(size * sizeof(int));
-
-	for(int i = 0; i < num_training * num_persons; i++)
 	{
+		histograms[i] = (int*)malloc(size * sizeof(int));
 		create_histogram(histograms[i], training_set[i], 182, 202);
 	}
 
 	double* distances = (double*)malloc(num_training * num_persons* sizeof(double));
 
-	double min_number = 999999;
+	double min_number = 9999999;
 	int min_index = 0;
 	for(int i = 0; i < num_training*num_persons; i++)
 	{
@@ -102,7 +100,7 @@ test_image)
 
 int main(void) {
 
-	int k = 10; //number of training images for each person
+	int k = 1; //number of training images for each person
 	int n = 18; //number of people
 	int p = 20; //number of pictures for each person
 	int rows = 182;
@@ -125,7 +123,7 @@ int main(void) {
 	{
 		for(int j = 1; j <= p; j++)
 		{
-			filename = malloc(20*sizeof(char));
+			filename = malloc( 20 * sizeof(char));
 			sprintf(filename, "images/%d.%d.txt", i, j);
 			pictures[i-1][j-1] = read_pgm_file(filename, rows, cols);
 			free(filename);
@@ -136,7 +134,7 @@ int main(void) {
 	{
 		for(int j = 1; j <= k; j++)
 		{
-			filename = malloc(20*sizeof(char));
+			filename = malloc( 20 * sizeof(char));
 			sprintf(filename, "images/%d.%d.txt", i, j);
 			training_sets[k * (i-1) + (j-1)] = read_pgm_file(filename, rows, cols);
 			free(filename);
@@ -152,19 +150,20 @@ int main(void) {
 
 			//find closest person ids for each person, for each test image
 			closest_indices[i][j-k] = find_closest(training_sets, n, k, hist_size, test_img_hist);
-			printf("%d.%d: %d %d\n", i,j, closest_indices[i][j-k], i);
 			free(test_img_hist);
-
 		}
 	}
 
+	int errors = 0;
 	for(int i = 0; i < n; i++) //traverse each person
 	{
-		for(int j = 0; j < n-p; j++) //traverse each test image for each person
+		for(int j = 0; j < p-k; j++) //traverse each test image for each person
 		{
-			//printf("%d.%d.txt %d %d\n", i, j, closest_indices[i][j], i);
+			printf("%d.%d.txt\t%d %d\n", i, j+k, closest_indices[i][j], i);
+			errors += (closest_indices[i][j] != i);
 		}
 	}
+	printf("Accuracy: %d errors out of %d test images.", errors, n * (p-k));
 	dealloc_2d_matrix(closest_indices, n, p-k);
 
 	for(int i = 0; i < (k * n); i++)
