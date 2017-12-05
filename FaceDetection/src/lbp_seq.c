@@ -96,12 +96,13 @@ test_image)
 
 	dealloc_2d_matrix(histograms, num_training * num_persons, size);
 	free(distances);
-	return min_index / num_persons;
+
+	return min_index / num_training;
 }
 
 int main(void) {
 
-	int k = 5; //number of training images for each person
+	int k = 10; //number of training images for each person
 	int n = 18; //number of people
 	int p = 20; //number of pictures for each person
 	int rows = 182;
@@ -151,7 +152,7 @@ int main(void) {
 
 			//find closest person ids for each person, for each test image
 			closest_indices[i][j-k] = find_closest(training_sets, n, k, hist_size, test_img_hist);
-			//printf("%d.%d: %d\n", i,j, closest_indices[i][j-k]);
+			printf("%d.%d: %d %d\n", i,j, closest_indices[i][j-k], i);
 			free(test_img_hist);
 
 		}
@@ -161,7 +162,7 @@ int main(void) {
 	{
 		for(int j = 0; j < n-p; j++) //traverse each test image for each person
 		{
-			printf("%d.%d.txt %d %d\n", i, j, closest_indices[i][j], i);
+			//printf("%d.%d.txt %d %d\n", i, j, closest_indices[i][j], i);
 		}
 	}
 	dealloc_2d_matrix(closest_indices, n, p-k);
