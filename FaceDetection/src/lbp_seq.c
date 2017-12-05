@@ -12,82 +12,22 @@
 #include <stdlib.h>
 #include "util.h"
 
-
-
-int main(void) {
-
-	int k = 5; //number of training images for each person
-	int n = 18; //number of people
-	int p = 20; //number of pictures for each person
-	int rows = 182;
-	int cols = 202;
-	int** closest_indices = alloc_2d_matrix(n, p-k);
-	int hist_size = 255;
-
-	//2d arrays of pictures for each picture for each people
-	int ****pictures = (int****)malloc(n * sizeof(int***));
-	int ***training_sets = (int***)malloc((k * n) * sizeof(int**));
-
-	for(int i = 0; i < n; i++)
-	{
-		pictures[i] = (int***)malloc(p * sizeof(int**));
-	}
-
-	char* filename;
-
-	for(int i = 0; i < n; i++)
-	{
-		for(int j = 0; j < p; j++)
-		{
-			filename = malloc(10*sizeof(char));
-			sprintf(filename, "%d.%d.txt", i, j);
-			pictures[i][j] = read_pgm_file(filename, rows, cols);
-			free(filename);
-		}
-	}
-
-	for(int i = 0; i < n; i++)
-	{
-		for(int j = 0; j < k; j++)
-		{
-			filename = malloc(10*sizeof(char));
-			sprintf(filename, "%d.%d.txt", i, j);
-			training_sets[k * i + j] = read_pgm_file(filename, rows, cols);
-			free(filename);
-		}
-	}
-
-	for(int i = 0; i < n; i++) //traverse each person
-	{
-		for(int j = k; j < p; j++) //traverse each test image for each person
-		{
-			int* test_img_hist;
-			create_histogram(test_img_hist, pictures[i][j], rows, cols);
-
-			//find closest person ids for each person, for each test image
-			closest_indices[i][j-k] = find_closest(training_sets, n, k, hist_size, test_img_hist);
-		}
-	}
-
-	for(int i = 0; i < n; i++) //traverse each person
-	{
-		for(int j = 0; j < n-p; j++) //traverse each test image for each person
-		{
-			printf("%d.%d.txt %d %d\n", i, j, closest_indices[i][j], i);
-		}
-	}
-	return 0;
-}
+void create_histogram(int * hist, int ** img, int num_rows, int num_cols);
+double distance(int * a, int *b, int size);
+int find_closest(int ***training_set, int num_persons, int num_training, int size, int *
+test_image);
 
 void create_histogram(int * hist, int ** img, int num_rows, int num_cols)
 {
 	int cur_sum = 0;
-	hist = (int*)malloc(255 * sizeof(int));
-	for(int i = 0; i < 255; i++)
+
+	for(int i = 0; i < 256; i++)
 		hist[i] = 0;
 
 	for(int i = 1; i < num_rows-1; i++)
 	{
+		cur_sum = 0;
+
 		for(int j = 1; j < num_cols-1; j++)
 		{
 			cur_sum = 0;
@@ -130,12 +70,17 @@ double distance(int * a, int *b, int size)
 int find_closest(int ***training_set, int num_persons, int num_training, int size, int *
 test_image)
 {
-	int** histograms = (int**)malloc(num_training * sizeof(int*));
+	int** histograms = (int**)malloc(num_training * num_persons * sizeof(int*));
 
-	for(int i = 0; i < num_training; i++)
+	for(int i = 0; i < num_training*num_persons; i++)
+		histograms[i] = (int*)malloc(size * sizeof(int));
+
+	for(int i = 0; i < num_training * num_persons; i++)
+	{
 		create_histogram(histograms[i], training_set[i], 182, 202);
+	}
 
-	double* distances = (double*)malloc(num_training * sizeof(double));
+	double* distances = (double*)malloc(num_training * num_persons* sizeof(double));
 
 	double min_number = 999999;
 	int min_index = 0;
@@ -149,5 +94,80 @@ test_image)
 		}
 	}
 
+	dealloc_2d_matrix(histograms, num_training * num_persons, size);
+	free(distances);
 	return min_index / num_persons;
+}
+
+int main(void) {
+
+	int k = 5; //number of training images for each person
+	int n = 18; //number of people
+	int p = 20; //number of pictures for each person
+	int rows = 182;
+	int cols = 202;
+	int** closest_indices = alloc_2d_matrix(n, p-k);
+	int hist_size = 256;
+
+	//2d arrays of pictures for each picture for each people
+	int ****pictures = (int****)malloc(n * sizeof(int***));
+	int ***training_sets = (int***)malloc((k * n) * sizeof(int**));
+
+	for(int i = 0; i < n; i++)
+	{
+		pictures[i] = (int***)malloc(p * sizeof(int**));
+	}
+
+	char* filename;
+
+	for(int i = 1; i <= n; i++)
+	{
+		for(int j = 1; j <= p; j++)
+		{
+			filename = malloc(20*sizeof(char));
+			sprintf(filename, "images/%d.%d.txt", i, j);
+			pictures[i-1][j-1] = read_pgm_file(filename, rows, cols);
+			free(filename);
+		}
+	}
+
+	for(int i = 1; i <= n; i++)
+	{
+		for(int j = 1; j <= k; j++)
+		{
+			filename = malloc(20*sizeof(char));
+			sprintf(filename, "images/%d.%d.txt", i, j);
+			training_sets[k * (i-1) + (j-1)] = read_pgm_file(filename, rows, cols);
+			free(filename);
+		}
+	}
+
+	for(int i = 0; i < n; i++) //traverse each person
+	{
+		for(int j = k; j < p; j++) //traverse each test image for each person
+		{
+			int* test_img_hist = (int*)malloc(hist_size * sizeof(int));
+			create_histogram(test_img_hist, pictures[i][j], rows, cols);
+
+			//find closest person ids for each person, for each test image
+			closest_indices[i][j-k] = find_closest(training_sets, n, k, hist_size, test_img_hist);
+			//printf("%d.%d: %d\n", i,j, closest_indices[i][j-k]);
+			free(test_img_hist);
+
+		}
+	}
+
+	for(int i = 0; i < n; i++) //traverse each person
+	{
+		for(int j = 0; j < n-p; j++) //traverse each test image for each person
+		{
+			printf("%d.%d.txt %d %d\n", i, j, closest_indices[i][j], i);
+		}
+	}
+	dealloc_2d_matrix(closest_indices, n, p-k);
+
+	for(int i = 0; i < (k * n); i++)
+		dealloc_2d_matrix(training_sets[i], k*n, p);
+
+	return 0;
 }
