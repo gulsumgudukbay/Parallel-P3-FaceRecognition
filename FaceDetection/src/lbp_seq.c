@@ -124,13 +124,15 @@ int main(void) {
 		}
 	}
 
+	int idx = 0;
 	for(int i = 1; i <= n; i++)
 	{
 		for(int j = 1; j <= k; j++)
 		{
 			filename = malloc( 20 * sizeof(char));
 			sprintf(filename, "images/%d.%d.txt", i, j);
-			training_sets[k * (i-1) + (j-1)] = read_pgm_file(filename, rows, cols);
+			training_sets[idx] = read_pgm_file(filename, rows, cols);
+			idx++;
 			free(filename);
 		}
 	}
@@ -157,7 +159,7 @@ int main(void) {
 			errors += (closest_indices[i][j] != i);
 		}
 	}
-	printf("Accuracy: %d errors out of %d test images.", errors, n * (p-k));
+	printf("Accuracy: %d errors out of %d test images.\n", errors, n * (p-k));
 	dealloc_2d_matrix(closest_indices, n, p-k);
 
 	for(int i = 0; i < (k * n); i++)
