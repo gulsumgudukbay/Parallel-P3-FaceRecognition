@@ -1,16 +1,18 @@
 /*
  ============================================================================
- Name        : FaceDetection.c
+ Name        : lbp_omp.c
  Author      : Gulsum Gudukbay
- Description : Face Detection Sequential Code
+ Description : Face Detection Parallel Code
  ============================================================================
  */
 
+#include "omp.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "util.h"
 #include <float.h>
 #include <time.h>
+
 void create_histogram(int * hist, int ** img, int num_rows, int num_cols);
 double distance(int * a, int *b, int size);
 int find_closest(int ***training_set, int num_persons, int num_training, int size, int *
@@ -23,6 +25,7 @@ void create_histogram(int* hist, int** img, int num_rows, int num_cols)
 	for(int i = 0; i < 256; i++)
 		hist[i] = 0;
 
+	#pragma omp parallel shared (img, hist) private(cur_sum)
 	for(int i = 1; i < num_rows-1; i++)
 	{
 		cur_sum = 0;
@@ -87,6 +90,7 @@ test_image)
 
 int main(int argc, char *argv[]) {
 	clock_t begin = clock();
+
 	int k = atoi(argv[1]); //number of training images for each person
 	int n = 18; //number of people
 	int p = 20; //number of pictures for each person
@@ -99,6 +103,7 @@ int main(int argc, char *argv[]) {
 	int ****pictures = (int****)malloc(n * sizeof(int***));
 	int ***training_sets = (int***)malloc((k * n) * sizeof(int**));
 
+	#pragma omp parallel for
 	for(int i = 0; i < n; i++)
 		pictures[i] = (int***)malloc(p * sizeof(int**));
 
@@ -173,6 +178,6 @@ int main(int argc, char *argv[]) {
 
 	clock_t end = clock();
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("Sequential time: %f\n", time_spent);
+	printf("Parallel time: %f\n", time_spent);
 	return 0;
 }
