@@ -96,7 +96,7 @@ test_image)
 
 int main(void) {
 
-	int k = 2; //number of training images for each person
+	int k = 10; //number of training images for each person
 	int n = 18; //number of people
 	int p = 20; //number of pictures for each person
 	int rows = 202;
