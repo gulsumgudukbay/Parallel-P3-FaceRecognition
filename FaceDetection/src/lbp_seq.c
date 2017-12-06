@@ -71,7 +71,7 @@ test_image)
 	for(int i = 0; i < num_training*num_persons; i++)
 	{
 		histograms[i] = (int*)malloc(size * sizeof(int));
-		create_histogram(histograms[i], training_set[i], 182, 202);
+		create_histogram(histograms[i], training_set[i], 202, 182);
 	}
 
 	double* distances = (double*)malloc(num_training * num_persons* sizeof(double));
@@ -99,8 +99,8 @@ int main(void) {
 	int k = 2; //number of training images for each person
 	int n = 18; //number of people
 	int p = 20; //number of pictures for each person
-	int rows = 182;
-	int cols = 202;
+	int rows = 202;
+	int cols = 182;
 	int** closest_indices = alloc_2d_matrix(n, p-k);
 	int hist_size = 256;
 
