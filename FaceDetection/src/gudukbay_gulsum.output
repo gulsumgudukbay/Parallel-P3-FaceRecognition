@@ -345,7 +345,7 @@ k=1
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 334 correct answers for 342 tests.
-Sequential time: 1.977302
+Sequential time: 2.001173
 
 
 k=2
@@ -675,7 +675,7 @@ k=2
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 318 correct answers for 324 tests.
-Sequential time: 2.025367
+Sequential time: 2.071229
 
 
 k=5
@@ -951,7 +951,7 @@ k=5
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 269 correct answers for 270 tests.
-Sequential time: 2.260671
+Sequential time: 2.370740
 
 
 k=7
@@ -1191,7 +1191,7 @@ k=7
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 234 correct answers for 234 tests.
-Sequential time: 2.435379
+Sequential time: 2.442886
 
 
 k=10
@@ -1377,7 +1377,7 @@ k=10
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 180 correct answers for 180 tests.
-Sequential time: 2.601865
+Sequential time: 2.724103
 
 
 Parallel Outputs:
@@ -1729,7 +1729,7 @@ k=1
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 334 correct answers for 342 tests.
-Parallel time: 2.005255
+Parallel time: 2.025684
 
 
 k=2
@@ -2059,7 +2059,7 @@ k=2
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 318 correct answers for 324 tests.
-Parallel time: 2.109171
+Parallel time: 2.112878
 
 
 k=5
@@ -2335,7 +2335,7 @@ k=5
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 269 correct answers for 270 tests.
-Parallel time: 2.293132
+Parallel time: 2.358034
 
 
 k=7
@@ -2575,7 +2575,7 @@ k=7
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 234 correct answers for 234 tests.
-Parallel time: 2.500915
+Parallel time: 2.523116
 
 
 k=10
@@ -2761,7 +2761,7 @@ k=10
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 180 correct answers for 180 tests.
-Parallel time: 2.687110
+Parallel time: 2.726277
 
 
 num_of_threads=2
@@ -3111,7 +3111,7 @@ k=1
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 334 correct answers for 342 tests.
-Parallel time: 2.003596
+Parallel time: 2.048535
 
 
 k=2
@@ -3441,7 +3441,7 @@ k=2
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 318 correct answers for 324 tests.
-Parallel time: 2.070728
+Parallel time: 2.111933
 
 
 k=5
@@ -3717,7 +3717,7 @@ k=5
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 269 correct answers for 270 tests.
-Parallel time: 2.351753
+Parallel time: 2.358793
 
 
 k=7
@@ -3957,7 +3957,7 @@ k=7
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 234 correct answers for 234 tests.
-Parallel time: 2.543727
+Parallel time: 2.526646
 
 
 k=10
@@ -4143,7 +4143,7 @@ k=10
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 180 correct answers for 180 tests.
-Parallel time: 2.689516
+Parallel time: 2.757317
 
 
 num_of_threads=4
@@ -4493,7 +4493,7 @@ k=1
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 334 correct answers for 342 tests.
-Parallel time: 1.989897
+Parallel time: 2.051091
 
 
 k=2
@@ -4823,7 +4823,7 @@ k=2
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 318 correct answers for 324 tests.
-Parallel time: 2.086835
+Parallel time: 2.140870
 
 
 k=5
@@ -5099,7 +5099,7 @@ k=5
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 269 correct answers for 270 tests.
-Parallel time: 2.332830
+Parallel time: 2.412592
 
 
 k=7
@@ -5339,7 +5339,7 @@ k=7
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 234 correct answers for 234 tests.
-Parallel time: 2.724149
+Parallel time: 2.582815
 
 
 k=10
@@ -5525,7 +5525,7 @@ k=10
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 180 correct answers for 180 tests.
-Parallel time: 3.351802
+Parallel time: 2.723970
 
 
 num_of_threads=6
@@ -5875,7 +5875,7 @@ k=1
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 334 correct answers for 342 tests.
-Parallel time: 2.186520
+Parallel time: 2.074349
 
 
 k=2
@@ -6205,7 +6205,7 @@ k=2
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 318 correct answers for 324 tests.
-Parallel time: 2.364125
+Parallel time: 2.209019
 
 
 k=5
@@ -6481,7 +6481,7 @@ k=5
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 269 correct answers for 270 tests.
-Parallel time: 2.631081
+Parallel time: 2.394058
 
 
 k=7
@@ -6721,7 +6721,7 @@ k=7
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 234 correct answers for 234 tests.
-Parallel time: 2.808527
+Parallel time: 2.555447
 
 
 k=10
@@ -6907,7 +6907,7 @@ k=10
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 180 correct answers for 180 tests.
-Parallel time: 3.066941
+Parallel time: 2.783384
 
 
 num_of_threads=8
@@ -7257,7 +7257,7 @@ k=1
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 334 correct answers for 342 tests.
-Parallel time: 2.265978
+Parallel time: 2.046900
 
 
 k=2
@@ -7587,7 +7587,7 @@ k=2
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 318 correct answers for 324 tests.
-Parallel time: 2.136839
+Parallel time: 2.103250
 
 
 k=5
@@ -7863,7 +7863,7 @@ k=5
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 269 correct answers for 270 tests.
-Parallel time: 2.461788
+Parallel time: 2.362015
 
 
 k=7
@@ -8103,7 +8103,7 @@ k=7
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 234 correct answers for 234 tests.
-Parallel time: 2.551752
+Parallel time: 2.546898
 
 
 k=10
@@ -8289,7 +8289,7 @@ k=10
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 180 correct answers for 180 tests.
-Parallel time: 2.708382
+Parallel time: 2.745451
 
 
 num_of_threads=16
@@ -8639,7 +8639,7 @@ k=1
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 334 correct answers for 342 tests.
-Parallel time: 2.012785
+Parallel time: 2.083471
 
 
 k=2
@@ -8969,7 +8969,7 @@ k=2
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 318 correct answers for 324 tests.
-Parallel time: 2.095720
+Parallel time: 2.153351
 
 
 k=5
@@ -9245,7 +9245,7 @@ k=5
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 269 correct answers for 270 tests.
-Parallel time: 2.329961
+Parallel time: 2.430917
 
 
 k=7
@@ -9485,7 +9485,7 @@ k=7
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 234 correct answers for 234 tests.
-Parallel time: 2.492943
+Parallel time: 2.556905
 
 
 k=10
@@ -9671,6 +9671,6 @@ k=10
 18.19.txt  18 18
 18.20.txt  18 18
 Accuracy: 180 correct answers for 180 tests.
-Parallel time: 2.698090
+Parallel time: 2.774631
 
 

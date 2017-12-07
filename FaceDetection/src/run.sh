@@ -34,6 +34,7 @@ do
     echo -e "k=${k_values[$i]}\n" >> gudukbay_gulsum.output
     ./lbp_omp ${k_values[$i]} >> gudukbay_gulsum.output
     echo -e "\n" >> gudukbay_gulsum.output
+    echo -e "k=${k_values[$i]}\n" >> prof_omp.txt
     gprof lbp_omp gmon.out >> prof_omp.txt
     echo -e "\n" >> prof_omp.txt
   done
