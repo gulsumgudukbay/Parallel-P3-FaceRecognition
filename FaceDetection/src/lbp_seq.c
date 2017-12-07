@@ -155,11 +155,11 @@ int main(int argc, char *argv[]) {
 	{
 		for(int j = 0; j < p-k; j++) //traverse each test image for each person
 		{
-			//printf("%d.%d.txt  %d %d\n", i+1, j+k+1, closest_indices[i][j]+1, i+1);
+			printf("%d.%d.txt  %d %d\n", i+1, j+k+1, closest_indices[i][j]+1, i+1);
 			errors += (closest_indices[i][j] != i);
 		}
 	}
-	printf("Accuracy: %d errors out of %d test images.\n", errors, n * (p-k));
+	printf("Accuracy: %d correct answers for %d tests.\n", n*(p-k)-errors, n * (p-k));
 
 	dealloc_2d_matrix(histograms, k * n, hist_size);
 	dealloc_2d_matrix(closest_indices, n, p-k);

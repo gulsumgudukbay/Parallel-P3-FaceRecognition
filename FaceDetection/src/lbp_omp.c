@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
 	int ****pictures = (int****)malloc(n * sizeof(int***));
 	int ***training_sets = (int***)malloc((k * n) * sizeof(int**));
 
-	#pragma omp parallel for shared(pictures, p)
+	//#pragma omp parallel for shared(pictures, p)
 	for(int i = 0; i < n; i++)
 		pictures[i] = (int***)malloc(p * sizeof(int**));
 
@@ -139,7 +139,7 @@ int main(int argc, char *argv[]) {
 	//create histograms of training sets
 	int** histograms = (int**)malloc(k * n * sizeof(int*));
 
-	#pragma omp parallel for shared(histograms, hist_size)
+	//#pragma omp parallel for shared(histograms, hist_size)
 	for(int i = 0; i < k*n; i++)
 	{
 		histograms[i] = (int*)malloc(hist_size * sizeof(int));
@@ -182,16 +182,16 @@ int main(int argc, char *argv[]) {
 			errors += (closest_indices[i][j] != i);
 		}
 	}
-	printf("Accuracy: %d errors out of %d test images.\n", errors, n * (p-k));
+	printf("Accuracy: %d correct answers for %d tests.\n", n*(p-k)-errors, n * (p-k));
 
 	dealloc_2d_matrix(histograms, k * n, hist_size);
 	dealloc_2d_matrix(closest_indices, n, p-k);
 
-	#pragma omp parallel for shared(training_sets, p, k, n)
+	//#pragma omp parallel for shared(training_sets, p, k, n)
 	for(int i = 0; i < (k * n); i++)
 		dealloc_2d_matrix(training_sets[i], k*n, p);
 
-	#pragma omp parallel for shared(pictures, rows, cols)
+	//#pragma omp parallel for shared(pictures, rows, cols)
 	for(int i = 0; i < n; i++)
 		for(int j = 0; j < p; j++)
 			dealloc_2d_matrix(pictures[i][j], rows, cols);
