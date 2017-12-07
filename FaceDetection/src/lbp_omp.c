@@ -60,7 +60,7 @@ double distance(int* a, int *b, int size)
 	for(int i = 0; i < size; i++)
 	{
 		if(a[i] + b[i] != 0)
-			sum += 0.5*((a[i]-b[i]) * (a[i]-b[i])) / (a[i]+b[i]);
+			sum += 0.5*(double)((double)(a[i]-b[i]) * (double)(a[i]-b[i])) / (double)(a[i]+b[i]);
 	}
 	return sum;
 }
@@ -145,15 +145,15 @@ int main(int argc, char *argv[]) {
 		histograms[i] = (int*)malloc(hist_size * sizeof(int));
 	}
 
-	#pragma omp parallel for shared (histograms, training_sets)
+	#pragma omp parallel for shared(histograms, training_sets, rows, cols)
 	for(int i = 0; i < k*n; i++)
 	{
 		create_histogram(histograms[i], training_sets[i], rows, cols);
 	}
 
-	#pragma omp parallel for shared (pictures, rows, cols, hist_size, closest_indices, histograms, n, k)
 	for(int i = 0; i < n; i++) //traverse each person
 	{
+		#pragma omp parallel for shared(pictures, histograms, closest_indices, rows, cols)
 		for(int j = k; j < p; j++) //traverse each test image for each person
 		{
 			int* test_img_hist = (int*)malloc(hist_size * sizeof(int));
@@ -166,17 +166,17 @@ int main(int argc, char *argv[]) {
 	}
 
 	int errors = 0;
-	#pragma omp parallel for shared(closest_indices)
 	for(int i = 0; i < n; i++) //traverse each person
 	{
 		for(int j = 0; j < p-k; j++) //traverse each test image for each person
 		{
-			printf("%d.%d.txt\t%d %d\n", i+1, j+k+1, closest_indices[i][j]+1, i+1);
+			printf("%d.%d.txt  %d %d\n", i+1, j+k+1, closest_indices[i][j]+1, i+1);
 		}
 	}
 
 	for(int i = 0; i < n; i++) //traverse each person
 	{
+		#pragma omp parallel for reduction(+:errors)
 		for(int j = 0; j < p-k; j++) //traverse each test image for each person
 		{
 			errors += (closest_indices[i][j] != i);
